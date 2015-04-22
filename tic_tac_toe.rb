@@ -81,8 +81,8 @@ class Game
     end
     board.render
     winner = "Nobody"
-    winner = 'Player 1' if board.winner == :x
-    winner = 'Player 2' if board.winner == :o
+    winner = "Player 1" if board.winner == :x
+    winner = "Player 2" if board.winner == :o
     puts "Congratulations #{winner}"
   end
 
