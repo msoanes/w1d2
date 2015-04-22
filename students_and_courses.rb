@@ -4,7 +4,7 @@ class Student
   def initialize(first_name, last_name)
     @first_name = first_name
     @last_name = last_name
-    @courses = Array.new
+    @courses = []
   end
 
   def name
@@ -12,12 +12,8 @@ class Student
   end
 
   def enroll(course)
-    unless courses.include? course
-      courses << course
-    end
-    unless course.students.include? self
-      course.add_student(self)
-    end
+    courses << course unless courses.include? course
+    course.add_student(self) unless course.students.include? self
   end
 
   def course_load
@@ -31,7 +27,6 @@ class Student
   def to_s
     name
   end
-
 end
 
 class Course
@@ -41,16 +36,12 @@ class Course
     @name = name
     @department = department
     @credits = credits
-    @students = Array.new
+    @students = []
   end
 
   def add_student(student)
-    unless students.include?(student)
-      students << student
-    end
-    unless student.courses.include?(self)
-      student.enroll(self)
-    end
+    students << student unless students.include?(student)
+    student.enroll(self) unless student.courses.include?(self)
   end
 
   def to_s

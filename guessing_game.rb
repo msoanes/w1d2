@@ -7,7 +7,7 @@ class GuessingGame
   end
 
   def prompt
-    print "Guess a number between 1 and 100 > "
+    print 'Guess a number between 1 and 100 > '
     Integer(gets)
   end
 
@@ -21,21 +21,21 @@ class GuessingGame
       guess_increment
       puts "Guess: #{guesses}"
       puts compare(player_number)
-      break if is_correct?(player_number)
+      break if correct?(player_number)
     end
   end
 
   def compare(player_number)
     if player_number > number
-      "Too high"
+      'Too high'
     elsif player_number < number
-      "Too low"
+      'Too low'
     else
-      "You win!"
+      'You win!'
     end
   end
 
-  def is_correct?(player_number)
+  def correct?(player_number)
     player_number == number
   end
 end

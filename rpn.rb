@@ -9,16 +9,20 @@ class RPNCalculator
     if character =~ /^[0-9]*$/
       stack.push(Integer(character))
     else
-      case character
-      when '+'
-        plus
-      when '*'
-        times
-      when '-'
-        minus
-      when '/'
-        divide
-      end
+      operate(character)
+    end
+  end
+
+  def operate(character)
+    case character
+    when '+'
+      plus
+    when '*'
+      times
+    when '-'
+      minus
+    when '/'
+      divide
     end
   end
 
@@ -37,7 +41,7 @@ class RPNCalculator
 
   def divide
     first = stack.pop
-    stack << stack.pop/first
+    stack << stack.pop / first
   end
 
   def read_from_stdinput
@@ -56,9 +60,7 @@ class RPNCalculator
 
   def loop_stdinput
     last_char = nil
-    while last_char != 'q'
-      last_char = read_from_stdinput
-    end
+    last_char = read_from_stdinput while last_char != 'q'
   end
 
   def run
@@ -76,7 +78,6 @@ class RPNCalculator
     end
     input_arr
   end
-
 end
 
 rpn = RPNCalculator.new

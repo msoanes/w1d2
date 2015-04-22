@@ -11,7 +11,7 @@ def remix(ingredients)
 end
 
 p remix([
-  ["rum", "coke"],
-  ["gin", "tonic"],
-  ["scotch", "soda"]
+  %w(rum coke),
+  %w(gin tonic),
+  %w(scotch soda)
 ])
