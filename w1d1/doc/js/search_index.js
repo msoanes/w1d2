@@ -1,0 +1,1 @@
+var search_data = {"index":{"searchIndex":["array","my_uniq()","two_sum()"],"longSearchIndex":["array","array#my_uniq()","array#two_sum()"],"info":[["Array","","Array.html","",""],["my_uniq","Array","Array.html#method-i-my_uniq","()",""],["two_sum","Array","Array.html#method-i-two_sum","()",""]]}}
