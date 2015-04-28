@@ -5,11 +5,12 @@ class Game
   end
 
   def prompt_guess
-    clean_input = ''
-    loop do
+    begin
       print "Please type in your guess for the password > "
       clean_input = sanitize_input(gets)
-      break if valid_input?(clean_input)
+      raise unless valid_input?(clean_input)
+    rescue
+      retry
     end
     clean_input
   end
