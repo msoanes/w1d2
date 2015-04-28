@@ -50,41 +50,51 @@ class Player
   def guess
     render_state
     guessed_char = make_guess
-    @remaining_letters[guessed_char.ord - 97] = '.'
+    remaining_letters_index = ('a'..'z').to_a.index(guessed_char)
+    @remaining_letters[remaining_letters_index] = '.'
     @past_guesses << guessed_char
     guessed_char
   end
 end
 
 class HumanPlayer < Player
-  def initialize
-  end
-
   def pick_secret_word
-    print "Please enter the LENGTH of your secret word > "
-    Integer(gets)
+    begin
+      print "Please enter the LENGTH of your secret word > "
+      @word_length = Integer(gets)
+    rescue
+      puts "You must enter an integer"
+      retry
+    end
   end
 
   def make_guess
-    valid = false
-    print 'Please enter your guess. > '
-
-    until valid
-      guessed_char = gets[0].downcase
-      if ('a'..'z').include?(guessed_char) && !@past_guesses.include?(guessed_char)
-        valid = true
-      else
-        print "Enter a single new letter from 'a' to 'z'. > "
-      end
+    begin
+      print "Enter a single new letter from 'a' to 'z'. > "
+      guessed_char = gets.chomp.downcase
+      raise unless ('a'..'z').include?(guessed_char) &&
+        !@past_guesses.include?(guessed_char)
+    rescue
+      puts "Must enter a single letter you haven't already guessed"
+      retry
     end
+
     guessed_char
   end
 
   def check_guess(guess)
-    puts
-    puts "At what positions (if any) is '#{guess}' in your word?"
-    print "Seperate your numbers with spaces only. > "
-    gets.split.map { |index| Integer(index) - 1 }
+    begin
+      puts
+      puts "At what positions (if any) is '#{guess}' in your word?"
+      print "Seperate your numbers with spaces only. > "
+      indices = gets.split.map { |index| Integer(index) - 1 }
+      raise if indices.any? { |index| index > @word_length }
+    rescue
+      puts "Please enter a list of numbers separated by spaces."
+      puts "Ensure your numbers are actual positions in the word."
+      retry
+    end
+    indices
   end
 end
 
@@ -164,5 +174,5 @@ class ComputerPlayer < Player
 end
 
 # game = Hangman.new(HumanPlayer.new, HumanPlayer.new)
-game = Hangman.new(ComputerPlayer.new, HumanPlayer.new)
+game = Hangman.new(HumanPlayer.new, HumanPlayer.new)
 game.run
